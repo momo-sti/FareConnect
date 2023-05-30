@@ -1,0 +1,5 @@
+
+.DS_Store
+.env
+flyctl deploy --agent
+flyctl deploy --agent-cert.pub
