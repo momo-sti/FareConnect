@@ -3,3 +3,7 @@
 .env
 flyctl deploy --agent
 flyctl deploy --agent-cert.pub
+
+log/
+node_modules/
+tmp/
