@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  resources :posts
+  resources :tops
 
-  root 'posts#index'
-  get '/distance', to: 'post#distance'
-  get '/route', to: 'post#route'
+  root 'tops#index'
+  get '/distance', to: 'top#distance'
+  get '/route', to: 'top#route'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
