@@ -4,6 +4,15 @@ class PostsController < ApplicationController
     gon.post = @post
   end
 
+  def distance
+    @distance = params[:distance]
+    @duration = params[:duration]
+  end
+
+  def route
+    @route = params[:route]
+  end
+
   private
 
   def post_params

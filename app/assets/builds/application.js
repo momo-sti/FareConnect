@@ -4565,7 +4565,7 @@
       }
     }
     get eventListeners() {
-      return Array.from(this.eventListenerMaps.values()).reduce((listeners, map2) => listeners.concat(Array.from(map2.values())), []);
+      return Array.from(this.eventListenerMaps.values()).reduce((listeners, map) => listeners.concat(Array.from(map.values())), []);
     }
     bindingConnected(binding) {
       this.fetchEventListenerForBinding(binding).bindingConnected(binding);
@@ -5051,25 +5051,25 @@
       }
     }
   };
-  function add(map2, key, value) {
-    fetch2(map2, key).add(value);
+  function add(map, key, value) {
+    fetch2(map, key).add(value);
   }
-  function del(map2, key, value) {
-    fetch2(map2, key).delete(value);
-    prune(map2, key);
+  function del(map, key, value) {
+    fetch2(map, key).delete(value);
+    prune(map, key);
   }
-  function fetch2(map2, key) {
-    let values = map2.get(key);
+  function fetch2(map, key) {
+    let values = map.get(key);
     if (!values) {
       values = /* @__PURE__ */ new Set();
-      map2.set(key, values);
+      map.set(key, values);
     }
     return values;
   }
-  function prune(map2, key) {
-    const values = map2.get(key);
+  function prune(map, key) {
+    const values = map.get(key);
     if (values != null && values.size == 0) {
-      map2.delete(key);
+      map.delete(key);
     }
   }
   var Multimap = class {
@@ -8111,18 +8111,18 @@
 
   // node_modules/@popperjs/core/lib/utils/orderModifiers.js
   function order(modifiers) {
-    var map2 = /* @__PURE__ */ new Map();
+    var map = /* @__PURE__ */ new Map();
     var visited = /* @__PURE__ */ new Set();
     var result = [];
     modifiers.forEach(function(modifier) {
-      map2.set(modifier.name, modifier);
+      map.set(modifier.name, modifier);
     });
     function sort(modifier) {
       visited.add(modifier.name);
       var requires = [].concat(modifier.requires || [], modifier.requiresIfExists || []);
       requires.forEach(function(dep) {
         if (!visited.has(dep)) {
-          var depModifier = map2.get(dep);
+          var depModifier = map.get(dep);
           if (depModifier) {
             sort(depModifier);
           }
