@@ -4,9 +4,14 @@
 
 body {
   margin: 0;
-  padding: 0;
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
   font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", メイリオ, Meiryo, "MS Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #e6e6e6;
+}
+main {
+  background: #e6e6e6;
+  flex: 1;
 }
 
 header {
