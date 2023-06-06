@@ -1,59 +1,86 @@
-<h2>gmap</h2>
-<!-- 検索フォーム -->
-<input id="address" type="textbox" value="">
-<input type="button" value="Encode" onclick="codeAddress()">
+<h2>Googleマップ経路検索</h2>
+    <form id="routeSearchForm">
+        出発地：<input id="inputBegin" type="text" value="">
+        目的地：<input id="inputEnd" type="text" value="">
+        高速道路を使用：<input type="radio" name="highways" id="highwaysYes" value="yes"> はい
+                      <input type="radio" name="highways" id="highwaysNo" value="no" checked> いいえ
+        <input type="submit" value="検索" id="searchButton">
+    </form>
 
-<div id='map'></div>
+<div id="map_canvas"></div>
+<div id="directionsPanel"></div>
 
 <style>
-#map {
-  height: 600px;
-  width: 600px;
-}
+    #map_canvas {
+        width: 600px;
+        height: 600px;
+    }
 </style>
 
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+ 
 <script>
-let map
+var map, begin, end;
+var directionsDisplay;
+var directionsService;
+var avoidHighways = true; // default to avoid highways
 
-function initMap(){
-  geocoder = new google.maps.Geocoder()
+function initMap() {
+    initialize();
+}
+ 
+$('#searchButton').click(function(e) {
+    e.preventDefault();
+    begin = $('#inputBegin').val();
+    end   = $('#inputEnd').val();
+    avoidHighways = $('input[name="highways"]:checked').val() === 'no'; // read from the radio button
+    $('#directionsPanel').text(' ');
+    initialize();
+    calcRoute(begin, end);
+});
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 35.6585, lng: 139.7486},
-    zoom: 12,
-  });
+function initialize() {
+    var latlng = new google.maps.LatLng(35.6895, 139.6917);  // Tokyo's lat and long
 
-  marker = new google.maps.Marker({
-    position:  {lat: 40.7828, lng:-73.9653},
-    map: map
-  });
+    // オプション
+    var myOptions = {
+        zoom: 14,
+        center: latlng,
+        scrollwheel: false,     // ホイールでの拡大・縮小
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+    };
+
+    // #map_canvasを取得し、[mapOptions]の内容の、地図のインスタンス([map])を作成する
+    map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+    // 経路を取得
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('directionsPanel'));     // 経路詳細
 }
 
-let geocoder
+// ルート取得
+function calcRoute(begin, end) {
 
-function codeAddress(){
-  let inputAddress = document.getElementById('address').value;
+    var request = {
+        origin: begin,         // 開始地点
+        destination: end,      // 終了地点
+        travelMode: google.maps.TravelMode.DRIVING,     // [自動車]でのルート
+        avoidHighways: avoidHighways,       // reflect the user's choice
+    };
 
-  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-      });
-    } else {
-      alert('該当する結果がありませんでした：' + status);
-    }
-  });   
+    // インスタンス作成
+    directionsService = new google.maps.DirectionsService();
+
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        } else {
+            alert('ルートが見つかりませんでした…');
+        }
+    });
 }
+
 </script>
-<%= javascript_tag do %>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${'<%= ENV['GOOGLE_MAP_API_KEY'] %>'}&callback=initMap`;
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-  });
-<% end %>
-
