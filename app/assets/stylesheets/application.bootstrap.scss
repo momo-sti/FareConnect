@@ -2,9 +2,16 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'header';
 @import 'footer';
+@import 'top';
 
 
-#map_index{
-  height: 400px;
-  width: 400px; 
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
 }

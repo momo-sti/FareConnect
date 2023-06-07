@@ -19699,14 +19699,6 @@ textarea.form-control-lg {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  flex-flow: column;
-  min-height: 100vh;
-  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", メイリオ, Meiryo, "MS Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
 main {
   background: #e6e6e6;
   flex: 1;
@@ -19754,7 +19746,7 @@ nav {
 footer {
   margin-top: auto;
   width: 100%;
-  padding: 30px 4% 10px;
+  padding: 10px 4% 10px;
   background-color: #fff;
   text-align: center; /* 中央寄せ */
 }
@@ -19771,22 +19763,84 @@ ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 li {
+  flex: 1;
   margin: 0;
-  padding: 0 20px;
+  padding: 0 10px;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .copyright {
   margin: 0;
-  padding: 20px 0 0 0;
+  padding: 10px 0 0 0;
 }
 
-#map_index {
-  height: 400px;
-  width: 400px;
+#routeSearchForm {
+  position: absolute;
+  width: 100%;
+  padding: 1em;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+}
+
+#inputForm input[type=text] {
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.toggle {
+  margin-right: 0.5em;
+}
+
+#searchButton {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1em;
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+#directionsPanel {
+  position: absolute;
+  bottom: 60px; /* Adjust this value based on the height of your search button */
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+  height: 20%;
+  overflow: auto;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
 }
 
 /*# sourceMappingURL=application.css.map */
