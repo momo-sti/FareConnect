@@ -19699,11 +19699,6 @@ textarea.form-control-lg {
   box-sizing: border-box;
 }
 
-main {
-  background: #e6e6e6;
-  flex: 1;
-}
-
 header {
   width: 100%;
   padding: 30px 4% 10px;
@@ -19780,67 +19775,73 @@ li {
 }
 
 #routeSearchForm {
-  position: absolute;
+  position: relative;
   width: 100%;
-  padding: 1em;
   box-sizing: border-box;
-  background-color: rgba(255, 255, 255, 0.8);
   z-index: 10;
+  background-color: #fff;
 }
 
-#inputForm input[type=text] {
-  width: 100%;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+#inputForm input {
   padding: 20px;
 }
 
+#inputBegin {
+  width: 95%;
+  box-sizing: border-box;
+  padding: 5px;
+  margin: 5px 10px;
+}
+
+#inputEnd {
+  width: 95%;
+  box-sizing: border-box;
+  padding: 5px;
+  margin: 5px 10px;
+}
+
 .toggle-container {
+  width: 95%;
   display: flex;
   align-items: center;
   margin-bottom: 1em;
 }
 
 .toggle {
-  margin-right: 0.5em;
+  margin-left: 2em;
 }
 
 #searchButton {
   width: 100%;
   box-sizing: border-box;
-  padding: 1em;
+  padding: 10px;
   background-color: #4285F4;
   color: white;
   border: none;
   border-radius: 4px;
   font-size: 1em;
-  position: fixed;
-  bottom: 0;
-  left: 0;
 }
 
-#directionsPanel {
-  position: absolute;
-  bottom: 60px; /* Adjust this value based on the height of your search button */
+#map_canvas {
   width: 100%;
-  box-sizing: border-box;
-  padding: 1em;
-  background-color: rgba(255, 255, 255, 0.8);
-  z-index: 10;
-  height: 20%;
-  overflow: auto;
+  height: 100dvh;
+}
+
+main {
+  background: #e6e6e6;
+  flex: 1;
 }
 
 html, body {
-  height: 100%;
-}
-
-body {
+  margin: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-flow: column;
   min-height: 100vh;
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", メイリオ, Meiryo, "MS Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #e6e6e6;
+  position: relative;
+  box-sizing: border-box;
+  padding-bottom: 120px;
 }
 
 /*# sourceMappingURL=application.css.map */

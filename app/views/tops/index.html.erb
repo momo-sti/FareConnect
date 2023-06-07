@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag 'top' %>
+
 <div id="routeSearchForm">
   <div class ="inputForm">
     <div><input id="inputBegin" type="text" placeholder="出発地"></div>
@@ -13,13 +15,6 @@
 
 <div id="map_canvas"></div>
 <div id="directionsPanel"></div>
-
-<style>
-    #map_canvas {
-        width: 100%;
-        height: 100dvh;
-    }
-</style>
 
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>

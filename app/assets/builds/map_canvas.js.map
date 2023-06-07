@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../javascript/map_canvas.js"],
+  "sourcesContent": ["document.addEventListener(\"DOMContentLoaded\", function() {\n  const headerHeight = document.querySelector('header').offsetHeight;\n  const footerHeight = document.querySelector('footer').offsetHeight;\n  const mapCanvas = document.querySelector('#map_canvas');\n  mapCanvas.style.height = `calc(100vh - ${headerHeight}px - ${footerHeight}px)`;\n});\n"],
+  "mappings": ";;AAAA,WAAS,iBAAiB,oBAAoB,WAAW;AACvD,UAAM,eAAe,SAAS,cAAc,QAAQ,EAAE;AACtD,UAAM,eAAe,SAAS,cAAc,QAAQ,EAAE;AACtD,UAAM,YAAY,SAAS,cAAc,aAAa;AACtD,cAAU,MAAM,SAAS,gBAAgB,oBAAoB;AAAA,EAC/D,CAAC;",
+  "names": []
+}
