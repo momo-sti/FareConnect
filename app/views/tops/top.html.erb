@@ -1,4 +1,6 @@
 <%= stylesheet_link_tag 'top' %>
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
 
 <div id="routeSearchForm">
   <div class ="inputForm">
@@ -10,7 +12,7 @@
         <label for="highwaysToggle">高速道路を使用する</label>
     </div>
     <button id="searchButton">検索</button>
-    <%= link_to '決定', calculations_path, class: 'button' %>
+    <%= link_to "決定", calculations_path, id: "confirmButton", class: "button" %>
 
 </div>
 
@@ -26,24 +28,53 @@
 var map, begin, end;
 var directionsDisplay;
 var directionsService;
-var avoidHighways = true; // default to avoid highways
+var avoidHighways = true; // 高速道路使用有無（デフォルトは使用しない）
 
 function initMap() {
     initialize();
 }
- 
+
+// searchButtonがクリックされたら関数発火
 $('#searchButton').click(function(e) {
     e.preventDefault();
-    begin = $('#inputBegin').val();
-    end   = $('#inputEnd').val();
-    avoidHighways = $('input[name="highways"]:checked').val() === 'no'; // read from the radio button
+    begin = $('#inputBegin').val(); // 開始地点
+    end   = $('#inputEnd').val(); // 終了地点
+    avoidHighways = $('input[name="highways"]:checked').val() === 'no'; // トグルで判断
     $('#directionsPanel').text(' ');
-    initialize();
-    calcRoute(begin, end);
+    initialize(); // 初期化
+    calcRoute(begin, end); // ルート計算
 });
+/*
+var confirmButton = document.getElementById('confirmButton');
+console.log('Confirm Button:', confirmButton);
+
+confirmButton.addEventListener('click', function(e) {
+    e.preventDefault(); // 追加：デフォルトの動作（画面遷移）をキャンセル
+
+    console.log('Distance:', distance); // 変更：APIレスポンスから取得した距離を表示
+    console.log('Duration:', duration); // 変更：APIレスポンスから取得した時間を表示
+
+    // 距離・時間・開始地点・終了地点を'/calculations/datasave'に送信
+    $.ajax({
+    type: 'POST',
+    url: '/calculations/datasave',
+    data: JSON.stringify({
+        distance: distance,
+        duration: duration,
+        start_point: begin,
+        end_point: end,
+    }),
+    headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    },
+    contentType: 'application/json',
+    dataType: 'json',
+    });
+});
+*/
 
 function initialize() {
-    var latlng = new google.maps.LatLng(35.6895, 139.6917);  // Tokyo's lat and long
+    var latlng = new google.maps.LatLng(35.6895, 139.6917);  // マップの中心点（東京）
 
     // オプション
     var myOptions = {
@@ -69,7 +100,7 @@ function calcRoute(begin, end) {
         origin: begin,         // 開始地点
         destination: end,      // 終了地点
         travelMode: google.maps.TravelMode.DRIVING,     // [自動車]でのルート
-        avoidHighways: avoidHighways,       // reflect the user's choice
+        avoidHighways: avoidHighways,       // 高速道路有無
     };
 
     // インスタンス作成
@@ -78,6 +109,10 @@ function calcRoute(begin, end) {
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
+            var route = response.routes[0];
+            var leg = route.legs[0];
+            //distance = leg.distance.text; // 追加：APIレスポンスから距離を取得
+            //duration = leg.duration.text; // 追加：APIレスポンスから時間を取得
         } else {
             alert('ルートが見つかりませんでした…');
         }
