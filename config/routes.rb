@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-  resources :tops do
+  resources :tops, only: [:index, :top] do
     get :top, on: :collection
   end
   resources :calculations do
     get :result, on: :collection
     post :datasave, on: :collection
   end
+  resources :gasolines, only: [:index]
+
 
   root 'tops#top'
 

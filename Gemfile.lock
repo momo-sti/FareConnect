@@ -107,6 +107,9 @@ GEM
       request_store (>= 1.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    importmap-rails (1.1.6)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.6.0)
     irb (1.7.0)
       reline (>= 0.3.0)
@@ -207,6 +210,10 @@ GEM
       railties (>= 6.0.0)
     thor (1.2.2)
     timeout (0.3.2)
+    turbo-rails (1.4.0)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     web-console (4.2.0)
@@ -240,6 +247,7 @@ DEPENDENCIES
   dotenv-rails
   geocoder
   gon
+  importmap-rails
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
@@ -250,6 +258,7 @@ DEPENDENCIES
   selenium-webdriver
   sprockets-rails
   stimulus-rails
+  turbo-rails
   tzinfo-data
   web-console
   webdrivers

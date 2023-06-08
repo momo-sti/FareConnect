@@ -1,0 +1,37 @@
+<h1>ガソリン代の計算</h1>
+
+<form id='gasoline-form'>
+  <div class="field">
+    <label>走行距離</label>
+    <input type="number" id="distance">
+  </div>
+
+  <div class="field">
+    <label>燃費</label>
+    <input type="number" id="fuel_efficiency">
+  </div>
+
+  <div class="field">
+    <label>ガソリン単価</label>
+    <input type="number" id="price_per_liter">
+  </div>
+
+  <div class="actions">
+    <button type="button" id="calculate-button">Calculate</button>
+  </div>
+</form>
+
+<h2 id="cost">ガソリン代は円です</h2>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const calculateButton = document.getElementById('calculate-button');
+  calculateButton.addEventListener('click', function(){
+    const distance = document.getElementById('distance').value;
+    const fuelEfficiency = document.getElementById('fuel_efficiency').value;
+    const pricePerLiter = document.getElementById('price_per_liter').value;
+    const cost = (distance / fuelEfficiency) * pricePerLiter;
+    document.getElementById('cost').innerText = `ガソリン代は ${cost.toFixed(1)} 円`;
+  });
+});
+</script>

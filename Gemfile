@@ -19,7 +19,7 @@ gem "puma", "~> 5.0"
 gem "jsbundling-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-#gem "turbo-rails"
+gem "turbo-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -48,6 +48,8 @@ gem 'sassc'
 gem 'geocoder'
 gem 'dotenv-rails'
 gem 'gon'
+gem 'importmap-rails'
+
 
 # Use Sass to process CSS
 # gem "sassc-rails"

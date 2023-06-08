@@ -12093,6 +12093,18 @@
   };
   enableDismissTrigger(Toast);
   defineJQueryPlugin(Toast);
+
+  // app/javascript/gasoline_calculator.js
+  document.addEventListener("DOMContentLoaded", function() {
+    const calculateButton = document.getElementById("calculate-button");
+    calculateButton.addEventListener("click", function() {
+      const distance = document.getElementById("distance").value;
+      const fuelEfficiency = document.getElementById("fuel_efficiency").value;
+      const pricePerLiter = document.getElementById("price_per_liter").value;
+      const cost = distance / fuelEfficiency * pricePerLiter;
+      document.getElementById("cost").innerText = `\u30AC\u30BD\u30EA\u30F3\u4EE3\u306F ${cost.toFixed(1)} \u5186\u3067\u3059`;
+    });
+  });
 })();
 /*! Bundled license information:
 
