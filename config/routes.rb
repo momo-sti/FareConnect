@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   end
   resources :gasolines, only: [:index]
 
+  resources :highways, only: [:highway] do
+    get :highway, on: :collection
+  end
+
 
   root 'tops#top'
 
