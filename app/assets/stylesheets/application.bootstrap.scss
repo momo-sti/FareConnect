@@ -3,20 +3,3 @@
 @import 'header';
 @import 'footer';
 @import 'top';
-
-main {
-  background: #e6e6e6;
-  flex: 1;
-}
-
-html, body {
-  margin: 0;
-  display: flex;
-  flex-flow: column;
-  min-height: 100vh;
-  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", メイリオ, Meiryo, "MS Ｐゴシック", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #e6e6e6;
-  position: relative;
-  box-sizing: border-box;
-  padding-bottom: 120px;
-}

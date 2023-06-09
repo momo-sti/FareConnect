@@ -13,16 +13,17 @@
 
   
   <body>
-    <%# if logged_in? %>
-      <%= render 'shared/header' %>
-    <%# else %>
-      <%#= render 'shared/before_login_header' %>
-    <%# end %>
-    <%#= render 'shared/flash_message' %>
-    <main>
-      <%= yield %>
-    </main>
-    <%= render 'shared/footer' %>
-
+    <div id="wrapper">
+      <%# if logged_in? %>
+        <%= render 'shared/header' %>
+      <%# else %>
+        <%#= render 'shared/before_login_header' %>
+      <%# end %>
+      <%#= render 'shared/flash_message' %>
+      <main>
+        <%= yield %>
+      </main>
+      <%= render 'shared/footer' %>
+    </div>
   </body>
 </html>
