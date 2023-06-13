@@ -44,34 +44,6 @@ $('#searchButton').click(function(e) {
     initialize(); // 初期化
     calcRoute(begin, end); // ルート計算
 });
-/*
-var confirmButton = document.getElementById('confirmButton');
-console.log('Confirm Button:', confirmButton);
-
-confirmButton.addEventListener('click', function(e) {
-    e.preventDefault(); // 追加：デフォルトの動作（画面遷移）をキャンセル
-
-    console.log('Distance:', distance); // 変更：APIレスポンスから取得した距離を表示
-    console.log('Duration:', duration); // 変更：APIレスポンスから取得した時間を表示
-
-    // 距離・時間・開始地点・終了地点を'/calculations/datasave'に送信
-    $.ajax({
-    type: 'POST',
-    url: '/calculations/datasave',
-    data: JSON.stringify({
-        distance: distance,
-        duration: duration,
-        start_point: begin,
-        end_point: end,
-    }),
-    headers: {
-    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    },
-    contentType: 'application/json',
-    dataType: 'json',
-    });
-});
-*/
 
 function initialize() {
     var latlng = new google.maps.LatLng(35.6895, 139.6917);  // マップの中心点（東京）

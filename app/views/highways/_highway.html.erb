@@ -1,2 +1,18 @@
-<script type="text/javascript" src="https://www.driveplaza.com/SearchQuickOutside/routejs.php"></script>
-<script language='JavaScript'>_RouteVisibleMode="row";RouteFormVisible();</script>
+<%= form_tag highways_path, method: :post do %>
+  <div>
+    <%= label_tag :start_place, '出発IC' %>
+    <%= text_field_tag :start_place %>
+  </div>
+
+  <div>
+    <%= label_tag :arrive_place, '到着IC' %>
+    <%= text_field_tag :arrive_place %>
+  </div>
+
+  <div>
+    <%= label_tag :car_type, '自動車タイプ' %>
+    <%= select_tag :car_type, options_for_select([['普通車', '1'], ['軽自動車', '0']]) %>
+  </div>
+
+  <%= submit_tag '検索' %>
+<% end %>

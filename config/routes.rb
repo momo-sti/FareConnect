@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
+  get 'highways/index'
   resources :tops, only: [:index, :top] do
     get :top, on: :collection
   end
   resources :calculations do
     get :result, on: :collection
+    post :result, on: :collection
     post :datasave, on: :collection
   end
   resources :gasolines, only: [:index]
 
-  resources :highways, only: [:highway] do
-    get :highway, on: :collection
-  end
+  get 'highways/highway', to: 'highways#highway', as: 'highway_highway'
+  post 'highways', to: 'highways#create', as: 'highways'
 
 
   root 'tops#top'
