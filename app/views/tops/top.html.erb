@@ -12,7 +12,8 @@
         <label for="highwaysToggle">高速道路を使用する</label>
     </div>
     <button id="searchButton">検索</button>
-    <%= link_to "決定", calculations_path, id: "confirmButton", class: "button" %>
+    <%= button_to "決定", {}, {method: :get, id: "confirmButton", class: "button"} %>
+
 
 </div>
 
@@ -90,5 +91,22 @@ function calcRoute(begin, end) {
         }
     });
 }
+
+// 決定ボタンがクリックされたらデータをセッションストレージに保存してから画面遷移
+$('#confirmButton').click(function(e) {
+    e.preventDefault();
+
+    // 距離と時間を取得
+    var km = $('.adp-summary span[jstcache="25"]').text();
+    var time = $('.adp-summary span[jstcache="51"]').text();
+
+    // セッションストレージに保存
+    sessionStorage.setItem('km', km);
+    sessionStorage.setItem('time', time);
+    
+    // 保存が完了したら、画面遷移を行う
+    window.location.href = "/calculations";
+});
+
 
 </script>

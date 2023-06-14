@@ -1,16 +1,27 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 <h2>計算する</h2>
 
-<%
-=begin
-%>
-<p>出発地: <%= @start_point %></p>
-<p>目的地: <%= @end_point %></p>
-<p>距離: <%= @distance %> km</p>
-<p>所要時間: <%= @duration %></p>
-<%
-=end
-%>
+<div id="route-info">
+    <p>距離: <span id="distance"></span></p>
+    <p>時間: <span id="duration"></span></p>
+</div>
+
 
 <%= render 'gasolines/calculate' %>
 
 <%= render 'highways/highway' %>
+
+<script>
+//取得した距離と時間を表示
+$(document).ready(function() {
+    // セッションストレージからデータを取得
+    var km = sessionStorage.getItem('km');
+    var time = sessionStorage.getItem('time');
+
+    // HTMLに表示
+    $('#distance').text(km);
+    $('#duration').text(time);
+});
+</script>
