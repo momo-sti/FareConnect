@@ -1,18 +1,18 @@
-<%= form_tag highways_path, method: :post do %>
+<%= form_with url: highways_path, method: :post, local: true do |f| %>
   <div>
-    <%= label_tag :start_place, '出発IC' %>
-    <%= text_field_tag :start_place %>
+    <%= f.label :start_place, '出発IC' %>
+    <%= f.text_field :start_place %>
   </div>
 
   <div>
-    <%= label_tag :arrive_place, '到着IC' %>
-    <%= text_field_tag :arrive_place %>
+    <%= f.label :arrive_place, '到着IC' %>
+    <%= f.text_field :arrive_place %>
   </div>
 
   <div>
-    <%= label_tag :car_type, '自動車タイプ' %>
-    <%= select_tag :car_type, options_for_select([['普通車', '1'], ['軽自動車', '0']]) %>
+    <%= f.label :car_type, '自動車タイプ' %>
+    <%= f.select :car_type, options_for_select([['普通車', '1'], ['軽自動車', '0']]) %>
   </div>
 
-  <%= submit_tag '検索' %>
+  <%= f.submit '検索' %>
 <% end %>
