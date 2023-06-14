@@ -1,4 +1,12 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <h1>ガソリン代の計算</h1>
+
+<div id="route-info">
+    <p>距離: <span id="distance"></span></p>
+    <p>時間: <span id="duration"></span></p>
+</div>
+
 
 <form id='gasoline-form'>
   <div class="field">
@@ -17,13 +25,27 @@
   </div>
 
   <div class="actions">
-    <button type="button" id="calculate-button">Calculate</button>
+    <button type="button" id="calculate-button">計算</button>
   </div>
 </form>
 
 <h2 id="cost">ガソリン代金円</h2>
 
+<%= link_to "登録", highway_highway_path, class: "register" %>
+
+
 <script>
+//取得した距離と時間を表示
+$(document).ready(function() {
+    // セッションストレージからデータを取得
+    var km = sessionStorage.getItem('km');
+    var time = sessionStorage.getItem('time');
+
+    // HTMLに表示
+    $('#distance').text(km);
+    $('#duration').text(time);
+});
+
 document.addEventListener('DOMContentLoaded', function(){
   const calculateButton = document.getElementById('calculate-button');
   calculateButton.addEventListener('click', function(){

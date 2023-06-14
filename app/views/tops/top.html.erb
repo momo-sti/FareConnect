@@ -84,8 +84,6 @@ function calcRoute(begin, end) {
             directionsDisplay.setDirections(response);
             var route = response.routes[0];
             var leg = route.legs[0];
-            //distance = leg.distance.text; // 追加：APIレスポンスから距離を取得
-            //duration = leg.duration.text; // 追加：APIレスポンスから時間を取得
         } else {
             alert('ルートが見つかりませんでした…');
         }
@@ -105,7 +103,7 @@ $('#confirmButton').click(function(e) {
     sessionStorage.setItem('time', time);
     
     // 保存が完了したら、画面遷移を行う
-    window.location.href = "/calculations";
+    window.location.href = "/gasolines/calculate";
 });
 
 

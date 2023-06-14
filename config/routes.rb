@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     post :result, on: :collection
     post :datasave, on: :collection
   end
-  resources :gasolines, only: [:index]
+  resources :gasolines, only: [:index, :calculate] do
+    get :calculate, on: :collection
+  end
 
   get 'highways/highway', to: 'highways#highway', as: 'highway_highway'
   post 'highways', to: 'highways#create', as: 'highways'
