@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   resources :gasolines, only: [:index, :calculate] do
     get :calculate, on: :collection
+    post :save_gasoline_cost, on: :collection
   end
 
 

@@ -31,6 +31,7 @@
 
 <h2 id="cost">ガソリン代金円</h2>
 
+
 <%= link_to "次へ",  reset_cost_highways_path, class: "next" %>
 
 
@@ -53,7 +54,18 @@ document.addEventListener('DOMContentLoaded', function(){
     const fuelEfficiency = document.getElementById('fuel_efficiency').value;
     const pricePerLiter = document.getElementById('price_per_liter').value;
     const cost = (distance / fuelEfficiency) * pricePerLiter;
+    
+    // ガソリン代金を表示
     document.getElementById('cost').innerText = `ガソリン代金 ${cost.toFixed(1)} 円`;
+
+    // ガソリン代金をサーバに保存
+    $.ajax({
+      url: '/gasolines/save_gasoline_cost',
+      type: 'POST',
+      data: { 'gasoline_cost': cost.toFixed(1) }
+    });
   });
 });
+
+
 </script>
