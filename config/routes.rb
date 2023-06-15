@@ -12,8 +12,12 @@ Rails.application.routes.draw do
     get :calculate, on: :collection
   end
 
-  get 'highways/highway', to: 'highways#highway', as: 'highway_highway'
-  post 'highways', to: 'highways#create', as: 'highways'
+
+  resources :highways do
+    get :highway, on: :collection
+    post :save_cost, on: :collection
+    get :reset_cost, on: :collection
+  end
 
 
   root 'tops#top'

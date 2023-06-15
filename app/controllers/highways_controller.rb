@@ -1,5 +1,5 @@
 class HighwaysController < ApplicationController
-  def highway
+  def index
   end
 
   
@@ -16,6 +16,29 @@ class HighwaysController < ApplicationController
 
     #ドラぷらサイトに遷移
     redirect_to "https://www.driveplaza.com/dp/SearchQuick?startPlaceKana=#{start_place}&arrivePlaceKana=#{arrive_place}&searchHour=#{hour}&searchMinute=#{min}&kind=#{kind}&keiyuPlaceKana=&keiyuPlaceKana2=&keiyuPlaceKana3=&searchYear=#{year}&searchMonth=#{month}&searchDay=#{day}&roadType1=off&roadType2=off&roadType=15&carType=1&priority=2&selectickindflg=0", allow_other_host: true
+  end
+
+  def save_cost
+    @cost = params[:cost]
+    if @cost.match?(/\A[0-9]+\z/)
+      # costが整数の場合、セッションに保存
+      session[:cost] = @cost
+      flash.now[:success] = "料金を登録しました"
+      render :highway
+    else
+      # costが整数でない場合、エラーメッセージを返す
+      flash.now[:danger] = '半角数字を入力して下さい'
+      render :highway
+    end
+  end
+
+  def highway
+    @cost = session[:cost]
+  end
+
+  def reset_cost
+    session[:cost] = nil
+    redirect_to highway_highways_path
   end
   
 end
