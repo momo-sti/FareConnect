@@ -14,5 +14,21 @@
     <%= f.select :car_type, options_for_select([['普通車', '1'], ['軽自動車', '0']]) %>
   </div>
 
+  <div>
+    <%= f.label :date, '日付' %>
+    <%= f.date_field :date %>
+    <%= f.label :time, '時間' %>
+    <%= f.time_select :time, minute_step: 10 %>
+  </div>
+
+  <div>
+    <%= f.label :kind, '出発', value: 1 %>
+    <%= f.radio_button :kind, '1' %>
+
+    <%= f.label :kind, '到着', value: 2 %>
+    <%= f.radio_button :kind, '2' %>
+  </div>
+
+
   <%= f.submit '検索' %>
 <% end %>
