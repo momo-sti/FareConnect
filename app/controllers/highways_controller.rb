@@ -28,11 +28,5 @@ class HighwaysController < ApplicationController
     @cost = session[:highway_cost]
   end
 
-  def reset_cost
-    session[:highway_cost] = nil
-    session[:start_place] = nil
-    session[:arrive_place] = nil
-    redirect_to highway_highways_path
-  end
   
 end

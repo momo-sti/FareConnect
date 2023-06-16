@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     collection do
       get :create_highway
       post :save_highway_info
-      post :highway
+      get :highway
       get :reset_cost
     end
 
