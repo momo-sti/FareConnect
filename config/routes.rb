@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
   resources :gasolines, only: [:index, :calculate] do
     get :calculate, on: :collection
-    post :save_gasoline_cost, on: :collection
+    post :save_gasoline_info, on: :collection
   end
 
 
@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     get :highway, on: :collection
     post :save_cost, on: :collection
     get :reset_cost, on: :collection
+  end
+
+  resources :results do
+    get :get_gasoline_info, on: :collection
   end
 
 

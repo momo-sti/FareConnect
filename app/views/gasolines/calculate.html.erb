@@ -50,19 +50,25 @@ $(document).ready(function() {
 document.addEventListener('DOMContentLoaded', function(){
   const calculateButton = document.getElementById('calculate-button');
   calculateButton.addEventListener('click', function(){
-    const distance = document.getElementById('total_distance').value;
+    const totalDistance = document.getElementById('total_distance').value;
     const fuelEfficiency = document.getElementById('fuel_efficiency').value;
     const pricePerLiter = document.getElementById('price_per_liter').value;
-    const cost = (distance / fuelEfficiency) * pricePerLiter;
+    const cost = (totalDistance / fuelEfficiency) * pricePerLiter;
     
     // ガソリン代金を表示
     document.getElementById('cost').innerText = `ガソリン代金 ${cost.toFixed(1)} 円`;
 
-    // ガソリン代金をサーバに保存
+    // フォームの入力値とガソリン代金をサーバに保存
     $.ajax({
-      url: '/gasolines/save_gasoline_cost',
+      url: '/gasolines/save_gasoline_info',
       type: 'POST',
-      data: { 'gasoline_cost': cost.toFixed(1) }
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      data: {
+        'gasoline_cost': cost.toFixed(1),
+        'total_distance': totalDistance,
+        'fuel_efficiency': fuelEfficiency,
+        'price_per_liter': pricePerLiter
+      }
     });
   });
 });

@@ -1,0 +1,26 @@
+<h2>計算結果</h2>
+
+<h5 id="cost">ガソリン代金円</h5>
+<p id="total-distance-result">距離: </p>
+<p id="fuel-efficiency-result">燃費: </p>
+<p id="price-per-liter-result">ガソリン単価: </p>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+//ガソリン代金の値を取得して表示
+document.addEventListener('DOMContentLoaded', function(){
+    $.ajax({
+      url: '/results/get_gasoline_info',
+      type: 'GET',
+      success: function(res) {
+        document.getElementById('cost').innerText = `ガソリン代金 ${res.cost} 円`;
+        document.getElementById('total-distance-result').innerText = `距離: ${res.total_distance} km`;
+        document.getElementById('fuel-efficiency-result').innerText = `燃費: ${res.fuel_efficiency} km/L`;
+        document.getElementById('price-per-liter-result').innerText = `ガソリン単価: ${res.price_per_liter} 円/L`;
+      }
+    });
+});
+
+
+</script>
