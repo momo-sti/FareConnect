@@ -2,7 +2,6 @@ class HighwaysController < ApplicationController
   def index
   end
 
-  
   def create
     start_place = CGI.escape(params[:start_place])
     arrive_place = CGI.escape(params[:arrive_place])
@@ -18,26 +17,21 @@ class HighwaysController < ApplicationController
     redirect_to "https://www.driveplaza.com/dp/SearchQuick?startPlaceKana=#{start_place}&arrivePlaceKana=#{arrive_place}&searchHour=#{hour}&searchMinute=#{min}&kind=#{kind}&keiyuPlaceKana=&keiyuPlaceKana2=&keiyuPlaceKana3=&searchYear=#{year}&searchMonth=#{month}&searchDay=#{day}&roadType1=off&roadType2=off&roadType=15&carType=1&priority=2&selectickindflg=0", allow_other_host: true
   end
 
-  def save_cost
-    @cost = params[:cost]
-    if @cost.match?(/\A[0-9]+\z/)
-      # costが整数の場合、セッションに保存
-      session[:cost] = @cost
-      flash.now[:success] = "料金を登録しました"
-      render :highway
-    else
-      # costが整数でない場合、エラーメッセージを返す
-      flash.now[:danger] = '半角数字を入力して下さい'
-      render :highway
-    end
+  def save_highway_info
+    session[:start_place] = params[:start_place]
+    session[:arrive_place] = params[:arrive_place]
+    session[:highway_cost] = params[:highway_cost]
+    head :ok
   end
 
   def highway
-    @cost = session[:cost]
+    @cost = session[:highway_cost]
   end
 
   def reset_cost
-    session[:cost] = nil
+    session[:highway_cost] = nil
+    session[:start_place] = nil
+    session[:arrive_place] = nil
     redirect_to highway_highways_path
   end
   

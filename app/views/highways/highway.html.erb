@@ -1,12 +1,12 @@
 <%= form_with url: highways_path, method: :post, local: true do |f| %>
   <div>
     <%= f.label :start_place, '出発IC' %>
-    <%= f.text_field :start_place %>
+    <%= f.text_field :start_place, id: "start_place" %>
   </div>
 
   <div>
     <%= f.label :arrive_place, '到着IC' %>
-    <%= f.text_field :arrive_place %>
+    <%= f.text_field :arrive_place, id: "arrive_place" %>
   </div>
 
   <div>
@@ -33,18 +33,40 @@
   <%= f.submit '検索' %>
 <% end %>
 
-<div>
-  <%= form_with url: save_cost_highways_path, method: :post, local: true do |f| %>
-    <div>
-      <%= f.label :cost, '料金' %>
-      <%= f.number_field :cost, step: 1 %>
-    </div>
 
-    <%= f.submit '料金を保存' %>
-  <% end %>
+  <div>
+      <label for="high-cost">料金</label>
+      <input type="number" id="highway_cost" step="1">
+  </div>
 
-  <%= @cost %>円
+<button id="save-highway-button" class="button">次へ</button>
 
-</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const saveHigheayButton = document.getElementById('save-highway-button');
+  saveHigheayButton.addEventListener('click', function(e){
+    e.preventDefault();
 
-<%= link_to "次へ",  results_path, class: "next" %>
+    const startPlace = document.getElementById('start_place').value;
+    const arrivePlace = document.getElementById('arrive_place').value;
+    const cost = document.getElementById('highway_cost').value;
+
+    // フォームの入力値と高速料金をサーバーに保存
+    $.ajax({
+      url: '/highways/save_highway_info',
+      type: 'POST',
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      data: {
+        'highway_cost': cost,
+        'start_place': startPlace,
+        'arrive_place': arrivePlace
+      },
+      success: function() {
+        // 保存が完了したら、画面遷移を行う
+        window.location.href = "/results";
+      }
+    });
+  });
+});
+</script>

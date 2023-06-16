@@ -17,4 +17,19 @@ class ResultsController < ApplicationController
       cost: cost
     }
   end
+
+  def get_highway_info
+    # セッションから各値を取得
+    start_place = session[:start_place]
+    arrive_place = session[:arrive_place]
+    cost = session[:highway_cost]
+  
+    # JSON形式で値を返す
+    render json: {
+      start_place: start_place,
+      arrive_place: arrive_place,
+      cost: cost
+    }
+  end
+  
 end

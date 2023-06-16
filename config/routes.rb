@@ -15,13 +15,18 @@ Rails.application.routes.draw do
 
 
   resources :highways do
-    get :highway, on: :collection
-    post :save_cost, on: :collection
-    get :reset_cost, on: :collection
+    collection do
+      get :create_highway
+      post :save_highway_info
+      post :highway
+      get :reset_cost
+    end
+
   end
 
   resources :results do
     get :get_gasoline_info, on: :collection
+    get :get_highway_info, on: :collection
   end
 
 
