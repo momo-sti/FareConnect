@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     get :get_highway_info, on: :collection
   end
 
+  resources :extras
+
 
   root 'tops#top'
 
