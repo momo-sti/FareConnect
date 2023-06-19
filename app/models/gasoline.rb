@@ -8,7 +8,7 @@ class Gasoline
   def calculate
     return nil unless valid?
 
-    gasoline_cost = (total_distance.to_f / fuel_efficiency.to_f) * price_per_liter.to_f
-  gasoline_cost.round(1)
+    result = (total_distance.to_f / fuel_efficiency.to_f) * price_per_liter.to_f
+  result.round(1)
   end
 end
