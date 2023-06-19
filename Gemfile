@@ -48,7 +48,7 @@ gem 'sassc'
 gem 'geocoder'
 gem 'dotenv-rails'
 gem 'gon'
-gem 'importmap-rails'
+gem 'hotwire-rails'
 
 
 # Use Sass to process CSS

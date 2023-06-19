@@ -1,0 +1,46 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<h1>ガソリン代の計算</h1>
+
+<div id="route-info">
+    <p>距離: <span id="distance"></span></p>
+    <p>時間: <span id="duration"></span></p>
+</div>
+
+
+<%= form_with model: @gasoline, url: gasolines_path, local: true do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <%= f.label :total_distance %>
+  <%= f.number_field :total_distance, value: session[:gasoline]['total_distance'] %>
+
+  <%= f.label :fuel_efficiency %>
+  <%= f.number_field :fuel_efficiency, value: session[:gasoline]['fuel_efficiency'] %>
+
+  <%= f.label :price_per_liter %>
+  <%= f.number_field :price_per_liter, value: session[:gasoline]['price_per_liter'] %>
+
+  <%= f.submit %>
+<% end %>
+
+<%= turbo_frame_tag @gasoline_cost  do %>
+  <div id="result">
+    <%= render 'result' %>
+  </div>
+<% end %>
+
+<%= link_to "次へ",  highway_highways_path, class: "next" %>
+
+
+<script>
+//取得した距離と時間を表示
+$(document).ready(function() {
+    // セッションストレージからデータを取得
+    var km = sessionStorage.getItem('km');
+    var time = sessionStorage.getItem('time');
+
+    // HTMLに表示
+    $('#distance').text(km);
+    $('#duration').text(time);
+});
+
+</script>

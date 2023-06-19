@@ -2,6 +2,9 @@ class ExtrasController < ApplicationController
   before_action :set_extra, only: [:edit, :update, :destroy]
 
   def index
+    @start_place = session[:start_place]
+    @arrive_place = session[:arrive_place]
+    @highway_cost = session[:highway_cost]
     @extras = session[:extras] || []
   end
 

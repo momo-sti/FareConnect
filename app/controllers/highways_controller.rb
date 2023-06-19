@@ -1,8 +1,16 @@
 class HighwaysController < ApplicationController
   def index
+    @start_place = session[:start_place]
+    @arrive_place = session[:arrive_place]
+    @highway_cost = session[:highway_cost]
   end
 
   def create
+    #パラメータをセッションに保存
+    session[:start_place] = params[:start_place]
+    session[:arrive_place] = params[:arrive_place]
+
+    #フォームの内容をURLに埋め込み
     start_place = CGI.escape(params[:start_place])
     arrive_place = CGI.escape(params[:arrive_place])
     car_type = params[:car_type]
@@ -18,15 +26,15 @@ class HighwaysController < ApplicationController
   end
 
   def save_highway_info
-    session[:start_place] = params[:start_place]
-    session[:arrive_place] = params[:arrive_place]
-    session[:highway_cost] = params[:highway_cost]
-    head :ok
+
+    session[:highway_cost] = params[:highway_cost].to_i.presence || 0
+    @start_place = session[:start_place]
+    @arrive_place = session[:arrive_place]
+    @highway_cost = session[:highway_cost]
+    redirect_to results_path
   end
 
-  def highway
-    @cost = session[:highway_cost]
-  end
+  def highway; end
 
   
 end

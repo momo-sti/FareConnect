@@ -35,38 +35,8 @@
 
 
   <div>
-      <label for="high-cost">料金</label>
-      <input type="number" id="highway_cost" step="1">
+    <%= form_with url: save_highway_info_highways_path, local: true do |f| %>
+      <p><%= f.number_field :highway_cost %>円</p>
+      <div><%= f.submit '次へ' %></div>
+    <% end %>
   </div>
-
-<button id="save-highway-button" class="button">次へ</button>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  const saveHigheayButton = document.getElementById('save-highway-button');
-  saveHigheayButton.addEventListener('click', function(e){
-    e.preventDefault();
-
-    const startPlace = document.getElementById('start_place').value;
-    const arrivePlace = document.getElementById('arrive_place').value;
-    const cost = document.getElementById('highway_cost').value;
-
-    // フォームの入力値と高速料金をサーバーに保存
-    $.ajax({
-      url: '/highways/save_highway_info',
-      type: 'POST',
-      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-      data: {
-        'highway_cost': cost,
-        'start_place': startPlace,
-        'arrive_place': arrivePlace
-      },
-      success: function() {
-        // 保存が完了したら、画面遷移を行う
-        window.location.href = "/results";
-      }
-    });
-  });
-});
-</script>

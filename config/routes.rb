@@ -8,9 +8,9 @@ Rails.application.routes.draw do
     post :result, on: :collection
     post :datasave, on: :collection
   end
-  resources :gasolines, only: [:index, :calculate] do
+  resources :gasolines do
+    post :calculate, on: :collection
     get :calculate, on: :collection
-    post :save_gasoline_info, on: :collection
   end
 
 
