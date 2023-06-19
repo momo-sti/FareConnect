@@ -14,8 +14,7 @@
     <h5>カテゴリ: <%= extra["category"] %></h5>
     <h5>金額: <%= extra["amount"] %>円</h5>
     <%= link_to '編集', edit_extra_path(index), data: { turbo_action: 'replace' } %>
-    <%= link_to '削除', extra_path(index), data: { turbo_method: 'DELETE', confirm: '削除しますか？' } %>
-
+    <%= button_to '削除', extra_path(index), method: :delete, data: { confirm: '削除しますか？' } %>
   </div>
 <% end %>
 
