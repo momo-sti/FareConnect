@@ -16,7 +16,7 @@ class ExtrasController < ApplicationController
     @extra = Extra.new(extra_params)
     if @extra.valid?
       extras = session[:extras] || []
-      extras << @extra.attributes
+      extras << { category: @extra.category, amount: @extra.amount }
       session[:extras] = extras
       redirect_to extras_path
     else

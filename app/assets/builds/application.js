@@ -4492,6 +4492,9 @@
   // node_modules/@hotwired/turbo-rails/app/javascript/turbo/index.js
   addEventListener("turbo:before-fetch-request", encodeMethodIntoRequestBody);
 
+  // app/javascript/controllers/index.js
+  var controllers_exports = {};
+
   // node_modules/@hotwired/stimulus/dist/stimulus.js
   var EventListener = class {
     constructor(eventTarget, eventName, eventOptions) {
@@ -6793,15 +6796,10 @@
   application.debug = false;
   window.Stimulus = application;
 
-  // app/javascript/controllers/hello_controller.js
-  var hello_controller_default = class extends Controller {
-    connect() {
-      this.element.textContent = "Hello World!";
-    }
-  };
-
   // app/javascript/controllers/index.js
-  application.register("hello", hello_controller_default);
+  for (const name in controllers_exports) {
+    application.register(name, controllers_exports[name]);
+  }
 
   // node_modules/@popperjs/core/lib/index.js
   var lib_exports = {};

@@ -31,7 +31,7 @@ class HighwaysController < ApplicationController
     @start_place = session[:start_place]
     @arrive_place = session[:arrive_place]
     @highway_cost = session[:highway_cost]
-    redirect_to results_path
+    redirect_to extras_path
   end
 
   def highway; end
