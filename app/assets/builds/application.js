@@ -1,13 +1,36 @@
 (() => {
+  var __create = Object.create;
   var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
   var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __esm = (fn2, res) => function __init() {
     return fn2 && (res = (0, fn2[__getOwnPropNames(fn2)[0]])(fn2 = 0)), res;
+  };
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
   var __export = (target, all) => {
     for (var name in all)
       __defProp(target, name, { get: all[name], enumerable: true });
   };
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
 
   // node_modules/@rails/actioncable/src/adapters.js
   var adapters_default;
@@ -575,6 +598,12 @@
       init_subscription_guarantor();
       init_adapters();
       init_logger();
+    }
+  });
+
+  // app/javascript/controllers/modal_controller.js
+  var require_modal_controller = __commonJS({
+    "app/javascript/controllers/modal_controller.js"() {
     }
   });
 
@@ -4492,9 +4521,6 @@
   // node_modules/@hotwired/turbo-rails/app/javascript/turbo/index.js
   addEventListener("turbo:before-fetch-request", encodeMethodIntoRequestBody);
 
-  // app/javascript/controllers/index.js
-  var controllers_exports = {};
-
   // node_modules/@hotwired/stimulus/dist/stimulus.js
   var EventListener = class {
     constructor(eventTarget, eventName, eventOptions) {
@@ -4550,8 +4576,8 @@
     }
   }
   var Dispatcher = class {
-    constructor(application2) {
-      this.application = application2;
+    constructor(application) {
+      this.application = application;
       this.eventListenerMaps = /* @__PURE__ */ new Map();
       this.started = false;
     }
@@ -5940,8 +5966,8 @@
     };
   }
   var Module = class {
-    constructor(application2, definition) {
-      this.application = application2;
+    constructor(application, definition) {
+      this.application = application;
       this.definition = blessDefinition(definition);
       this.contextsByScope = /* @__PURE__ */ new WeakMap();
       this.connectedContexts = /* @__PURE__ */ new Set();
@@ -6258,8 +6284,8 @@
     }
   };
   var Router = class {
-    constructor(application2) {
-      this.application = application2;
+    constructor(application) {
+      this.application = application;
       this.scopeObserver = new ScopeObserver(this.element, this.schema, this);
       this.scopesByIdentifier = new Multimap();
       this.modulesByIdentifier = /* @__PURE__ */ new Map();
@@ -6367,9 +6393,9 @@
       this.actionDescriptorFilters = Object.assign({}, defaultActionDescriptorFilters);
     }
     static start(element, schema) {
-      const application2 = new this(element, schema);
-      application2.start();
-      return application2;
+      const application = new this(element, schema);
+      application.start();
+      return application;
     }
     async start() {
       await domReady();
@@ -6790,16 +6816,6 @@
   Controller.targets = [];
   Controller.outlets = [];
   Controller.values = {};
-
-  // app/javascript/controllers/application.js
-  var application = Application.start();
-  application.debug = false;
-  window.Stimulus = application;
-
-  // app/javascript/controllers/index.js
-  for (const name in controllers_exports) {
-    application.register(name, controllers_exports[name]);
-  }
 
   // node_modules/@popperjs/core/lib/index.js
   var lib_exports = {};
@@ -12091,6 +12107,19 @@
   };
   enableDismissTrigger(Toast);
   defineJQueryPlugin(Toast);
+
+  // app/javascript/controllers/hello_controller.js
+  var hello_controller_default = class extends Controller {
+    connect() {
+      this.element.textContent = "Hello World!";
+    }
+  };
+
+  // app/javascript/controllers/index.js
+  var import_modal_controller = __toESM(require_modal_controller());
+  var app = Application.start();
+  app.register("hello", hello_controller_default);
+  app.register("modal", import_modal_controller.default);
 })();
 /*! Bundled license information:
 

@@ -101,9 +101,16 @@ $('#confirmButton').click(function(e) {
     // セッションストレージに保存
     sessionStorage.setItem('km', km);
     sessionStorage.setItem('time', time);
-    
-    // 保存が完了したら、画面遷移を行う
+    // extraのセッションをリセット
+    $.ajax({
+    type: 'POST',
+    url: '/tops/reset_session',
+    data: { authenticity_token: $('meta[name="csrf-token"]').attr('content') },
+    success: function() {
+    // km,timeの保存とextraのリセットが完了したら、画面遷移を行う
     window.location.href = "/gasolines/new";
+    }
+    });
 });
 
 

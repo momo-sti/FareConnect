@@ -8,6 +8,8 @@
 
     <%= include_gon %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
 
   </head>
 
@@ -22,9 +24,10 @@
       <%# end %>
       <%#= render 'shared/flash_message' %>
       <main>
-        <%= yield %>
+          <%= yield %>
       </main>
       <%= render 'shared/footer' %>
     </div>
+    <%= turbo_frame_tag "modal" %>
   </body>
 </html>

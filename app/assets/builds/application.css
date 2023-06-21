@@ -19836,4 +19836,9 @@ li {
   height: 100dvh;
 }
 
+label.required:after {
+  content: " *";
+  color: red;
+}
+
 /*# sourceMappingURL=application.css.map */

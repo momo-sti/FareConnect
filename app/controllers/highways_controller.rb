@@ -22,7 +22,7 @@ class HighwaysController < ApplicationController
     kind = params[:kind]
 
     #ドラぷらサイトに遷移
-    redirect_to "https://www.driveplaza.com/dp/SearchQuick?startPlaceKana=#{start_place}&arrivePlaceKana=#{arrive_place}&searchHour=#{hour}&searchMinute=#{min}&kind=#{kind}&keiyuPlaceKana=&keiyuPlaceKana2=&keiyuPlaceKana3=&searchYear=#{year}&searchMonth=#{month}&searchDay=#{day}&roadType1=off&roadType2=off&roadType=15&carType=1&priority=2&selectickindflg=0", allow_other_host: true
+    redirect_to "https://www.driveplaza.com/dp/SearchQuick?startPlaceKana=#{start_place}&arrivePlaceKana=#{arrive_place}&searchHour=#{hour}&searchMinute=#{min}&kind=#{kind}&carType=#{car_type}&priority=2&keiyuPlaceKana=&keiyuPlaceKana2=&keiyuPlaceKana3=&searchYear=#{year}&searchMonth=#{month}&searchDay=#{day}&selectickindflg=0", allow_other_host: true, target: "_blank"
   end
 
   def save_highway_info

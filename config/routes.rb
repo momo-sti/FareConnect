@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'highways/index'
-  resources :tops, only: [:index, :top] do
-    get :top, on: :collection
+  resources :tops, only: [:new, :reset_session] do
+    post :reset_session, on: :collection
   end
   resources :calculations do
     get :result, on: :collection

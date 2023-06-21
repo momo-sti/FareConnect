@@ -9,14 +9,6 @@
 <p id="start-place-result">出発IC: <span class="detail"><%= @start_place %></span></p>
 <p id="arrive-place-result">到着IC: <span class="detail"><%= @arrive_place %></span></p>
 
-<% @extras.each_with_index do |extra, index| %>
-  <div>
-    <h5><%= extra["category"] %>: <%= extra["amount"] %>円</h5>
-    <%= link_to '編集', edit_extra_path(index), data: { turbo_action: 'replace' } %>
-    <%= button_to '削除', extra_path(index), method: :delete, data: { confirm: '削除しますか？' } %>
-  </div>
-<% end %>
+<%= render @extras %>
 
-<%= turbo_frame_tag 'new_extra' do %>
-  <%= render 'extras/form', extra: Extra.new %>
-<% end %>
+<%= link_to 'New Extra', new_extra_path %>

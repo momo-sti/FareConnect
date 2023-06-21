@@ -49,6 +49,8 @@ gem 'geocoder'
 gem 'dotenv-rails'
 gem 'gon'
 gem 'hotwire-rails'
+gem 'bootstrap_form'
+
 
 
 # Use Sass to process CSS

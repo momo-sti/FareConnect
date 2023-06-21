@@ -1,28 +1,13 @@
-<%= turbo_frame_tag dom_id(extra) do %>
-  <%= form_with(model: extra, local: true) do |f| %>
-    <% if extra.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(extra.errors.count, "error") %> prohibited this extra from being saved:</h2>
-        <ul>
-          <% extra.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+<%#= turbo_frame_tag extra do %>
+  <%# レイアウトをモーダル用に整える %>
+  <%# turbo:submit-end（Turboのsubmit後）イベント発火時に、modal#close（モーダルを閉じる）を実行する %>
+<%# end %>
 
-    <div class="field">
-      <%= f.label :category %>
-      <%= f.text_field :category %>
-    </div>
 
-    <div class="field">
-      <%= f.label :amount %>
-      <%= f.number_field :amount %>
-    </div>
 
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  <% end %>
+<%= bootstrap_form_with(model: extra, url: extra.persisted? ? extra_path(id: @extras.index(extra)) : extras_path, local: true) do |f| %>
+    <%= f.text_field :category %>
+    <%= f.number_field :amount %>
+
+    <%= f.primary %>
 <% end %>
