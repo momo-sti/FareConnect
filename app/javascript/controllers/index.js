@@ -27,3 +27,6 @@ app.register("hello", HelloController)
 
 import ModalController from "./modal_controller.js"
 app.register("modal", ModalController)
+
+import CounterController from "./counter_controller.js"
+app.register("counter", CounterController)

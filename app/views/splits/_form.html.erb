@@ -1,0 +1,43 @@
+<div id="split-container" data-total-amount="<%= @total_amount %>">
+  <button id="decrement-button">-</button>
+  <input type="number" id="person-count" value="1" min="1">
+  <button id="increment-button">+</button>
+  <h5 id="split-amount">割り勘額: 0円</h5>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+  const splitContainer = document.getElementById('split-container');
+  const totalAmount = parseFloat(splitContainer.getAttribute('data-total-amount'));
+
+  const personCountInput = document.getElementById('person-count');
+  const splitAmountDiv = document.getElementById('split-amount');
+
+  const incrementButton = document.getElementById('increment-button');
+  incrementButton.addEventListener('click', () => {
+    personCountInput.value = parseInt(personCountInput.value) + 1;
+    updateSplitAmount();
+  });
+
+  const decrementButton = document.getElementById('decrement-button');
+  decrementButton.addEventListener('click', () => {
+    if (parseInt(personCountInput.value) > 1) {
+      personCountInput.value = parseInt(personCountInput.value) - 1;
+    }
+    updateSplitAmount();
+  });
+
+  personCountInput.addEventListener('input', updateSplitAmount);
+
+  function updateSplitAmount() {
+    const personCount = parseInt(personCountInput.value);
+    const splitAmount = (totalAmount / personCount).toFixed(1);
+    splitAmountDiv.textContent = `割り勘額: ${splitAmount}円`;
+  }
+
+  updateSplitAmount();
+});
+
+
+</script>

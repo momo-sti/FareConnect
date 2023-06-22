@@ -5,6 +5,7 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __esm = (fn2, res) => function __init() {
     return fn2 && (res = (0, fn2[__getOwnPropNames(fn2)[0]])(fn2 = 0)), res;
   };
@@ -31,6 +32,10 @@
     isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
     mod
   ));
+  var __publicField = (obj, key, value) => {
+    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+    return value;
+  };
 
   // node_modules/@rails/actioncable/src/adapters.js
   var adapters_default;
@@ -12117,9 +12122,31 @@
 
   // app/javascript/controllers/index.js
   var import_modal_controller = __toESM(require_modal_controller());
+
+  // app/javascript/controllers/counter_controller.js
+  var counter_controller_default = class extends Controller {
+    connect() {
+      this.countTarget.value = 0;
+    }
+    increment() {
+      this.countTarget.value = parseInt(this.countTarget.value) + 1;
+    }
+    decrement() {
+      if (this.countTarget.value > 0) {
+        this.countTarget.value = parseInt(this.countTarget.value) - 1;
+      }
+    }
+    changeCount() {
+      this.countTarget.value = parseInt(this.countTarget.value);
+    }
+  };
+  __publicField(counter_controller_default, "targets", ["count"]);
+
+  // app/javascript/controllers/index.js
   var app = Application.start();
   app.register("hello", hello_controller_default);
   app.register("modal", import_modal_controller.default);
+  app.register("counter", counter_controller_default);
 })();
 /*! Bundled license information:
 
