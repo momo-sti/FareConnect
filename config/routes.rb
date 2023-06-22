@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       post :save_highway_info
       get :highway
       get :reset_cost
+      get :reset_and_redirect
     end
 
   end

@@ -2,6 +2,13 @@ class HighwaysController < ApplicationController
   def index
     @start_place = session[:start_place]
     @arrive_place = session[:arrive_place]
+    @car_type = session[:car_type]
+    @year = session[:year]
+    @month = session[:month]
+    @day = session[:day]
+    @hour = session[:hour]
+    @min = session[:min]
+    @kind = session[:kind]
     @highway_cost = session[:highway_cost]
   end
 
@@ -9,20 +16,13 @@ class HighwaysController < ApplicationController
     #パラメータをセッションに保存
     session[:start_place] = params[:start_place]
     session[:arrive_place] = params[:arrive_place]
+    session[:car_type] = params[:car_type]
+    session[:year], session[:month], session[:day] = params[:date].split("-")
+    session[:hour] = params["time(4i)"]
+    session[:min] = params["time(5i)"]
+    session[:kind] = params[:kind]
 
-    #フォームの内容をURLに埋め込み
-    start_place = CGI.escape(params[:start_place])
-    arrive_place = CGI.escape(params[:arrive_place])
-    car_type = params[:car_type]
-    date = params[:date]
-    year, month, day = date.split("-")
-    #time(？i) = time_selectのパラメータ形式
-    hour = params["time(4i)"]
-    min = params["time(5i)"]
-    kind = params[:kind]
-
-    #ドラぷらサイトに遷移
-    redirect_to "https://www.driveplaza.com/dp/SearchQuick?startPlaceKana=#{start_place}&arrivePlaceKana=#{arrive_place}&searchHour=#{hour}&searchMinute=#{min}&kind=#{kind}&carType=#{car_type}&priority=2&keiyuPlaceKana=&keiyuPlaceKana2=&keiyuPlaceKana3=&searchYear=#{year}&searchMonth=#{month}&searchDay=#{day}&selectickindflg=0", allow_other_host: true, target: "_blank"
+    redirect_to highway_highways_path
   end
 
   def save_highway_info
@@ -35,6 +35,20 @@ class HighwaysController < ApplicationController
   end
 
   def highway; end
+
+  def reset_and_redirect
+    session[:start_place] = nil
+    session[:arrive_place] = nil
+    session[:car_type] = nil
+    session[:year] = nil
+    session[:month] = nil
+    session[:day] = nil
+    session[:hour] = nil
+    session[:min] = nil
+    session[:kind] = nil
+
+    redirect_to highway_highways_path
+  end
 
   
 end
