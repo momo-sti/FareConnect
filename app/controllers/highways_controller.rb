@@ -13,6 +13,7 @@ class HighwaysController < ApplicationController
   end
 
   def create
+    #JSが動作しなかった場合のエラーハンドリング
     redirect_to "/500.html"
   end
 
