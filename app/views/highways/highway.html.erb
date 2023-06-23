@@ -67,45 +67,26 @@ document.addEventListener('DOMContentLoaded', function() {
   const mainForm = document.getElementById('main_form');
   const externalForm = document.getElementById('external_form');
   
-  //デフォルトのフォーム送信をキャンセルし、fetchを使用して非同期のPOSTリクエストを送信
   mainForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    fetch(mainForm.getAttribute('action'), {
-      method: mainForm.getAttribute('method'),
-      body: new FormData(mainForm),
-      credentials: 'include'
-    })
-    .then(response => {
-      if (response.ok) {
-        // メインのフォームのデータを取得
-        const formData = new FormData(mainForm);
+    // メインのフォームのデータを取得
+    const formData = new FormData(mainForm);
 
-        // フォームの値をセッションストレージに保存
-        Array.from(mainForm.elements).forEach(function(element) {
-          if (element.name) {
-            sessionStorage.setItem(element.name, formData.get(element.name));
-          }
-        });
+    // 外部サイトへのフォームのデータを設定
+    document.getElementById('startPlaceKana').value = formData.get('start_place');
+    document.getElementById('arrivePlaceKana').value = formData.get('arrive_place');
+    document.getElementById('searchHour').value = formData.get('hour');
+    document.getElementById('searchMinute').value = formData.get('minute');
+    document.getElementById('kind').value = formData.get('kind');
+    document.getElementById('carType').value = formData.get('car_type');
+    const date = formData.get('date').split('-');
+    document.getElementById('searchYear').value = date[0];
+    document.getElementById('searchMonth').value = parseInt(date[1], 10); // 月を整数に変換
+    document.getElementById('searchDay').value = parseInt(date[2], 10); // 日を整数に変換
 
-        // 外部サイトへのフォームのデータを設定
-        document.getElementById('startPlaceKana').value = formData.get('start_place');
-        document.getElementById('arrivePlaceKana').value = formData.get('arrive_place');
-        document.getElementById('searchHour').value = formData.get('hour');
-        document.getElementById('searchMinute').value = formData.get('minute');
-        document.getElementById('kind').value = formData.get('kind');
-        document.getElementById('carType').value = formData.get('car_type');
-        const date = formData.get('date').split('-');
-        document.getElementById('searchYear').value = date[0];
-        document.getElementById('searchMonth').value = parseInt(date[1], 10); // 月を整数に変換
-        document.getElementById('searchDay').value = parseInt(date[2], 10); // 日を整数に変換
-
-        // 外部サイトへのフォームを送信
-        externalForm.submit();
-      } else {
-        alert('エラーが発生しました。');
-      }
-    });
+    // 外部サイトへのフォームを送信
+    externalForm.submit();
   });
 });
 

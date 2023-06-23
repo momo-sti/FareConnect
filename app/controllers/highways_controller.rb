@@ -13,20 +13,11 @@ class HighwaysController < ApplicationController
   end
 
   def create
-    #パラメータをセッションに保存
-    session[:start_place] = params[:start_place]
-    session[:arrive_place] = params[:arrive_place]
-    session[:car_type] = params[:car_type]
-    session[:year], session[:month], session[:day] = params[:date].split("-")
-    session[:hour] = params["time(4i)"]
-    session[:min] = params["time(5i)"]
-    session[:kind] = params[:kind]
-
-    redirect_to highway_highways_path
+    redirect_to "/500.html"
   end
 
   def save_highway_info
-
+    #セッションに値を保存
     session[:highway_cost] = params[:highway_cost].to_i.presence || 0
     @start_place = session[:start_place]
     @arrive_place = session[:arrive_place]
