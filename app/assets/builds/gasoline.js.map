@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../javascript/gasoline.js"],
-  "sourcesContent": ["document.addEventListener('DOMContentLoaded', function(){\n  const form = document.getElementById('gasoline-form');\n  form.addEventListener('submit', function(e){\n    e.preventDefault();\n    \n    const formData = new FormData(form);\n    const XHR = new XMLHttpRequest();\n    XHR.open(\"POST\", \"/calculate\", true);\n    XHR.responseType = \"json\";\n    XHR.send(formData);\n    XHR.onload = function() {\n      if (XHR.status != 200) {\n        alert(`Error ${XHR.status}: ${XHR.statusText}`);\n      } else {\n        document.getElementById('cost').innerText = `\u30AC\u30BD\u30EA\u30F3\u4EE3\u306F ${XHR.response.cost} \u5186\u3067\u3059`;\n      }\n    };\n  });\n});\n"],
-  "mappings": ";;AAAA,WAAS,iBAAiB,oBAAoB,WAAU;AACtD,UAAM,OAAO,SAAS,eAAe,eAAe;AACpD,SAAK,iBAAiB,UAAU,SAAS,GAAE;AACzC,QAAE,eAAe;AAEjB,YAAM,WAAW,IAAI,SAAS,IAAI;AAClC,YAAM,MAAM,IAAI,eAAe;AAC/B,UAAI,KAAK,QAAQ,cAAc,IAAI;AACnC,UAAI,eAAe;AACnB,UAAI,KAAK,QAAQ;AACjB,UAAI,SAAS,WAAW;AACtB,YAAI,IAAI,UAAU,KAAK;AACrB,gBAAM,SAAS,IAAI,WAAW,IAAI,YAAY;AAAA,QAChD,OAAO;AACL,mBAAS,eAAe,MAAM,EAAE,YAAY,wCAAU,IAAI,SAAS;AAAA,QACrE;AAAA,MACF;AAAA,IACF,CAAC;AAAA,EACH,CAAC;",
-  "names": []
-}

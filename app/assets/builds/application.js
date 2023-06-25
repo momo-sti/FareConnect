@@ -4594,7 +4594,7 @@
       }
     }
     get eventListeners() {
-      return Array.from(this.eventListenerMaps.values()).reduce((listeners, map) => listeners.concat(Array.from(map.values())), []);
+      return Array.from(this.eventListenerMaps.values()).reduce((listeners, map2) => listeners.concat(Array.from(map2.values())), []);
     }
     bindingConnected(binding) {
       this.fetchEventListenerForBinding(binding).bindingConnected(binding);
@@ -5080,25 +5080,25 @@
       }
     }
   };
-  function add(map, key, value) {
-    fetch2(map, key).add(value);
+  function add(map2, key, value) {
+    fetch2(map2, key).add(value);
   }
-  function del(map, key, value) {
-    fetch2(map, key).delete(value);
-    prune(map, key);
+  function del(map2, key, value) {
+    fetch2(map2, key).delete(value);
+    prune(map2, key);
   }
-  function fetch2(map, key) {
-    let values = map.get(key);
+  function fetch2(map2, key) {
+    let values = map2.get(key);
     if (!values) {
       values = /* @__PURE__ */ new Set();
-      map.set(key, values);
+      map2.set(key, values);
     }
     return values;
   }
-  function prune(map, key) {
-    const values = map.get(key);
+  function prune(map2, key) {
+    const values = map2.get(key);
     if (values != null && values.size == 0) {
-      map.delete(key);
+      map2.delete(key);
     }
   }
   var Multimap = class {
@@ -8125,18 +8125,18 @@
 
   // node_modules/@popperjs/core/lib/utils/orderModifiers.js
   function order(modifiers) {
-    var map = /* @__PURE__ */ new Map();
+    var map2 = /* @__PURE__ */ new Map();
     var visited = /* @__PURE__ */ new Set();
     var result = [];
     modifiers.forEach(function(modifier) {
-      map.set(modifier.name, modifier);
+      map2.set(modifier.name, modifier);
     });
     function sort(modifier) {
       visited.add(modifier.name);
       var requires = [].concat(modifier.requires || [], modifier.requiresIfExists || []);
       requires.forEach(function(dep) {
         if (!visited.has(dep)) {
-          var depModifier = map.get(dep);
+          var depModifier = map2.get(dep);
           if (depModifier) {
             sort(depModifier);
           }
@@ -8635,14 +8635,14 @@
   var isRTL = () => document.documentElement.dir === "rtl";
   var defineJQueryPlugin = (plugin) => {
     onDOMContentLoaded(() => {
-      const $ = getjQuery();
-      if ($) {
+      const $2 = getjQuery();
+      if ($2) {
         const name = plugin.NAME;
-        const JQUERY_NO_CONFLICT = $.fn[name];
-        $.fn[name] = plugin.jQueryInterface;
-        $.fn[name].Constructor = plugin;
-        $.fn[name].noConflict = () => {
-          $.fn[name] = JQUERY_NO_CONFLICT;
+        const JQUERY_NO_CONFLICT = $2.fn[name];
+        $2.fn[name] = plugin.jQueryInterface;
+        $2.fn[name].Constructor = plugin;
+        $2.fn[name].noConflict = () => {
+          $2.fn[name] = JQUERY_NO_CONFLICT;
           return plugin.jQueryInterface;
         };
       }
@@ -8841,16 +8841,16 @@
       if (typeof event !== "string" || !element) {
         return null;
       }
-      const $ = getjQuery();
+      const $2 = getjQuery();
       const typeEvent = getTypeEvent(event);
       const inNamespace = event !== typeEvent;
       let jQueryEvent = null;
       let bubbles = true;
       let nativeDispatch = true;
       let defaultPrevented = false;
-      if (inNamespace && $) {
-        jQueryEvent = $.Event(event, args);
-        $(element).trigger(jQueryEvent);
+      if (inNamespace && $2) {
+        jQueryEvent = $2.Event(event, args);
+        $2(element).trigger(jQueryEvent);
         bubbles = !jQueryEvent.isPropagationStopped();
         nativeDispatch = !jQueryEvent.isImmediatePropagationStopped();
         defaultPrevented = jQueryEvent.isDefaultPrevented();
@@ -12142,6 +12142,78 @@
   app.register("hello", hello_controller_default);
   app.register("modal", import_modal_controller.default);
   app.register("counter", counter_controller_default);
+
+  // app/javascript/top.js
+  var map;
+  var begin;
+  var end2;
+  var directionsDisplay;
+  var directionsService;
+  var avoidHighways = true;
+  function initMap() {
+    initialize();
+  }
+  window.initMap = initMap;
+  $("#searchButton").click(function(e) {
+    e.preventDefault();
+    begin = $("#inputBegin").val();
+    end2 = $("#inputEnd").val();
+    avoidHighways = $('input[name="highways"]:checked').val() === "no";
+    $("#directionsPanel").text(" ");
+    initialize();
+    calcRoute(begin, end2);
+  });
+  function initialize() {
+    var latlng = new google.maps.LatLng(35.6895, 139.6917);
+    var myOptions = {
+      zoom: 14,
+      center: latlng,
+      scrollwheel: false,
+      // ホイールでの拡大・縮小
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+  }
+  function calcRoute(begin2, end3) {
+    var request = {
+      origin: begin2,
+      // 開始地点
+      destination: end3,
+      // 終了地点
+      travelMode: google.maps.TravelMode.DRIVING,
+      // [自動車]でのルート
+      avoidHighways
+      // 高速道路有無
+    };
+    directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+        var route = response.routes[0];
+        var leg = route.legs[0];
+      } else {
+        alert("\u30EB\u30FC\u30C8\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F\u2026");
+      }
+    });
+  }
+  $("#confirmButton").click(function(e) {
+    e.preventDefault();
+    var km = $('.adp-summary span[jstcache="25"]').text();
+    var time = $('.adp-summary span[jstcache="51"]').text();
+    sessionStorage.setItem("km", km);
+    sessionStorage.setItem("time", time);
+    $.ajax({
+      type: "POST",
+      url: "/tops/reset_session",
+      data: { authenticity_token: $('meta[name="csrf-token"]').attr("content") },
+      success: function() {
+        window.location.href = "/gasolines/new";
+      }
+    });
+  });
 })();
 /*! Bundled license information:
 
