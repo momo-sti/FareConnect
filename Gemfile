@@ -50,6 +50,7 @@ gem 'dotenv-rails'
 gem 'gon'
 gem 'hotwire-rails'
 gem 'bootstrap_form'
+gem 'tailwindcss-rails'
 
 
 
