@@ -9,3 +9,4 @@ import "bootstrap"
 import '../assets/stylesheets/application.tailwind.css'
 import './top.js'
 import './gasolines_new.js'
+import './highway.js'
