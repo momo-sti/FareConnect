@@ -8,6 +8,8 @@
 </div>
 
 
+<%= javascript_include_tag "gasolines_new", "data-turbo-track": "reload", defer: true %>
+
 <%= form_with model: @gasoline, url: gasolines_path, local: true do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <%= f.label :total_distance %>
@@ -30,17 +32,3 @@
 
 <%= link_to "次へ",  reset_and_redirect_highways_path, class: "next" %>
 
-
-<script>
-//取得した距離と時間を表示
-$(document).ready(function() {
-    // セッションストレージからデータを取得
-    var km = sessionStorage.getItem('km');
-    var time = sessionStorage.getItem('time');
-
-    // HTMLに表示
-    $('#distance').text(km);
-    $('#duration').text(time);
-});
-
-</script>

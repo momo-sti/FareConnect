@@ -12214,6 +12214,14 @@
       }
     });
   });
+
+  // app/javascript/gasolines_new.js
+  $(document).ready(function() {
+    var km = sessionStorage.getItem("km");
+    var time = sessionStorage.getItem("time");
+    $("#distance").text(km);
+    $("#duration").text(time);
+  });
 })();
 /*! Bundled license information:
 
