@@ -3,6 +3,9 @@
 <%= csp_meta_tag %>
 <%= javascript_include_tag "top", "data-turbo-track": "reload", defer: true %>
 
+<% content_for :title, "距離を計算する" %>
+
+
 <div id="routeSearchForm">
   <div class ="inputForm">
     <div><input id="inputBegin" type="text" placeholder="出発地"></div>
